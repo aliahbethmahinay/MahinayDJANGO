@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EasyStay - Reservation List</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3eadc;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            width: 240px;
+            min-height: 100vh;
+            background-color: #4a3b2a;
+            color: white;
+            padding: 25px 15px;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: 25px;
+            color: #fffaf2;
+        }
+
+        .logo p {
+            margin: 6px 0 0;
+            font-size: 13px;
+            color: #dfd0b9;
+        }
+
+        .nav-title {
+            font-size: 12px;
+            color: #cdbb9d;
+            text-transform: uppercase;
+            margin: 0 12px 10px;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            width: 100%;
+            padding: 13px 14px;
+            margin-bottom: 8px;
+
+            color: #fffaf2;
+            text-decoration: none;
+
+            border-radius: 8px;
+            font-size: 15px;
+
+            transition: 0.2s;
+        }
+
+        .nav-link:hover {
+            background-color: #66533d;
+        }
+
+        .nav-link.active {
+            background-color: #8c7658;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-icon {
+            width: 22px;
+            text-align: center;
+            font-size: 17px;
+        }
+
+
+        /* =========================
+           MAIN CONTENT
+        ========================= */
+
+        .main-content {
+            flex: 1;
+            padding: 45px;
+            overflow-x: auto;
+        }
+
+        .reservation-container {
+            width: 100%;
+            max-width: 1150px;
+            margin: auto;
+
+            background-color: #fffaf2;
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+            box-shadow: 0 5px 15px rgba(80, 60, 40, 0.15);
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            background-color: #cdbb9d;
+            color: #4a3b2a;
+
+            padding: 18px;
+
+            margin: -25px -25px 20px -25px;
+
+            border-radius: 15px 15px 0 0;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+
+        /* =========================
+           ADD RESERVATION BUTTON
+        ========================= */
+
+        .add-button {
+            background-color: #8c7658;
+            color: white;
+
+            padding: 10px 16px;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+        .add-button:hover {
+            background-color: #735f45;
+        }
+
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #dfd0b9;
+            color: #4a3b2a;
+
+            padding: 13px 10px;
+
+            text-align: left;
+
+            font-size: 14px;
+        }
+
+        td {
+            padding: 13px 10px;
+
+            border-bottom: 1px solid #e5d8c5;
+
+            color: #5c5042;
+
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background-color: #faf2e5;
+        }
+
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+            background-color: #eadfcf;
+
+            color: #66533d;
+
+            padding: 6px 10px;
+
+            border-radius: 15px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           EMPTY MESSAGE
+        ========================= */
+
+        .empty-message {
+            text-align: center;
+
+            padding: 25px;
+
+            color: #8a7a67;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 190px;
+            }
+
+            .main-content {
+                padding: 25px;
+            }
+
+            table {
+                min-width: 900px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            body {
+                display: block;
+            }
+
+            .sidebar {
+                width: 100%;
+                min-height: auto;
+            }
+
+            .logo {
+                margin-bottom: 20px;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         LEFT SIDEBAR
+    ========================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <h1>EasyStay</h1>
+
+            <p>Hotel Reservation System</p>
+
+        </div>
+
+
+        <p class="nav-title">
+            Navigation
+        </p>
+
+
+        <!-- HOME -->
+
+        <a href="{% url 'reservation_list' %}" class="nav-link active">
+
+            <span class="nav-icon">⌂</span>
+
+            <span>Home</span>
+
+        </a>
+
+
+        <!-- RESERVATIONS -->
+
+        <a href="{% url 'reservation_list' %}" class="nav-link">
+
+            <span class="nav-icon">▣</span>
+
+            <span>Reservations</span>
+
+        </a>
+
+
+        <!-- ADD RESERVATION -->
+
+        <a href="{% url 'add_reservation' %}" class="nav-link">
+
+            <span class="nav-icon">＋</span>
+
+            <span>Add Reservation</span>
+
+        </a>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
+    <main class="main-content">
+
+
+        <div class="reservation-container">
+
+
+            <!-- HEADER -->
+
+            <div class="header">
+
+                <h2>
+                    Reservation List
+                </h2>
+
+
+                <a href="{% url 'add_reservation' %}" class="add-button">
+
+                    + Add Reservation
+
+                </a>
+
+            </div>
+
+
+
+            <!-- RESERVATION TABLE -->
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Guest Name</th>
+
+                        <th>Contact Number</th>
+
+                        <th>Room Type</th>
+
+                        <th>Check In</th>
+
+                        <th>Check Out</th>
+
+                        <th>Guests</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    {% for reservation in reservations %}
+
+                    <tr>
+
+                        <td>
+                            R{{ reservation.reservation_id|stringformat:"03d" }}
+                        </td>
+
+                        <td>
+                            {{ reservation.guest_name }}
+                        </td>
+
+                        <td>
+                            {{ reservation.contact_number }}
+                        </td>
+
+                        <td>
+                            {{ reservation.room_type }}
+                        </td>
+
+                        <td>
+                            {{ reservation.check_in_date }}
+                        </td>
+
+                        <td>
+                            {{ reservation.check_out_date }}
+                        </td>
+
+                        <td>
+                            {{ reservation.number_of_guests }}
+                        </td>
+
+                        <td>
+
+                            <span class="status">
+
+                                {{ reservation.reservation_status }}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="8" class="empty-message">
+
+                            No reservations found.
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+
+                </tbody>
+
+            </table>
+
+
+        </div>
+
+
+    </main>
+
+
+</body>
+
+</html>

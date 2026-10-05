@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Reservation</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3eadc;
+            margin: 0;
+            padding: 50px;
+        }
+
+        .form-container {
+            width: 90%;
+            max-width: 700px;
+            margin: auto;
+            background-color: #fffaf2;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(80, 60, 40, 0.15);
+        }
+
+        h2 {
+            background-color: #cdbb9d;
+            color: #4a3b2a;
+            padding: 18px;
+            margin: -30px -30px 25px -30px;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #4a3b2a;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px;
+            border: 1px solid #d8c8ae;
+            border-radius: 7px;
+            font-size: 14px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #a9906e;
+        }
+
+        .buttons {
+            margin-top: 25px;
+            display: flex;
+            gap: 10px;
+        }
+
+        button,
+        .back-button {
+            padding: 11px 20px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #8c7658;
+            color: white;
+        }
+
+        .back-button {
+            background-color: #dfd0b9;
+            color: #4a3b2a;
+        }
+
+        button:hover,
+        .back-button:hover {
+            opacity: 0.85;
+        }
+
+        .errorlist {
+            color: #a94442;
+            font-size: 13px;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <h2>Add Reservation</h2>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="form-group">
+            {{ form.guest_name.label_tag }}
+            {{ form.guest_name }}
+            {{ form.guest_name.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.contact_number.label_tag }}
+            {{ form.contact_number }}
+            {{ form.contact_number.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.room_type.label_tag }}
+            {{ form.room_type }}
+            {{ form.room_type.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.check_in_date.label_tag }}
+            {{ form.check_in_date }}
+            {{ form.check_in_date.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.check_out_date.label_tag }}
+            {{ form.check_out_date }}
+            {{ form.check_out_date.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.number_of_guests.label_tag }}
+            {{ form.number_of_guests }}
+            {{ form.number_of_guests.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.reservation_status.label_tag }}
+            {{ form.reservation_status }}
+            {{ form.reservation_status.errors }}
+        </div>
+
+        <div class="buttons">
+            <button type="submit">Save Reservation</button>
+
+            <a href="{% url 'reservation_list' %}" class="back-button">
+                Back to Reservation List
+            </a>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>
