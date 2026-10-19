@@ -1,477 +1,506 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>EasyStay - Reservation List</title>
+    <title>Reservation List | EasyStay</title>
 
     <style>
-
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #f3eadc;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
+            background: #f3eadc;
+            color: #4b3828;
         }
 
-        /* =========================
-           SIDEBAR
-        ========================= */
-
-        .sidebar {
-            width: 240px;
+        /* Main layout */
+        .layout {
+            display: flex;
             min-height: 100vh;
-            background-color: #4a3b2a;
-            color: white;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 230px;
+            background: #cdbb9d;
             padding: 25px 15px;
             flex-shrink: 0;
         }
 
         .logo {
             text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+            color: #4b3828;
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            text-align: center;
+            font-size: 12px;
+            color: #66513c;
             margin-bottom: 35px;
         }
 
-        .logo h1 {
-            margin: 0;
-            font-size: 25px;
-            color: #fffaf2;
-        }
-
-        .logo p {
-            margin: 6px 0 0;
-            font-size: 13px;
-            color: #dfd0b9;
-        }
-
         .nav-title {
-            font-size: 12px;
-            color: #cdbb9d;
-            text-transform: uppercase;
-            margin: 0 12px 10px;
-            letter-spacing: 1px;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-
-            width: 100%;
-            padding: 13px 14px;
-            margin-bottom: 8px;
-
-            color: #fffaf2;
-            text-decoration: none;
-
-            border-radius: 8px;
-            font-size: 15px;
-
-            transition: 0.2s;
-        }
-
-        .nav-link:hover {
-            background-color: #66533d;
-        }
-
-        .nav-link.active {
-            background-color: #8c7658;
-            color: white;
+            font-size: 11px;
             font-weight: bold;
+            color: #765638;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 20px 10px 10px;
         }
 
-        .nav-icon {
-            width: 22px;
-            text-align: center;
-            font-size: 17px;
+        .sidebar a {
+            display: block;
+            padding: 12px 14px;
+            margin-bottom: 7px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #4b3828;
+            font-size: 14px;
+            transition: background 0.2s;
         }
 
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #fffaf2;
+        }
 
-        /* =========================
-           MAIN CONTENT
-        ========================= */
-
+        /* Main content */
         .main-content {
             flex: 1;
-            padding: 45px;
-            overflow-x: auto;
+            min-width: 0;
+            padding: 30px;
         }
 
-        .reservation-container {
-            width: 100%;
-            max-width: 1150px;
-            margin: auto;
-
-            background-color: #fffaf2;
-
-            border-radius: 15px;
-
-            padding: 25px;
-
-            box-shadow: 0 5px 15px rgba(80, 60, 40, 0.15);
-        }
-
-
-        /* =========================
-           HEADER
-        ========================= */
-
-        .header {
-            background-color: #cdbb9d;
-            color: #4a3b2a;
-
-            padding: 18px;
-
-            margin: -25px -25px 20px -25px;
-
-            border-radius: 15px 15px 0 0;
-
+        .topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
         }
 
-        .header h2 {
-            margin: 0;
-            font-size: 24px;
+        .topbar h1 {
+            font-size: 28px;
+            color: #4b3828;
+            margin-bottom: 7px;
         }
 
+        .subtitle {
+            font-size: 14px;
+            color: #806c56;
+        }
 
-        /* =========================
-           ADD RESERVATION BUTTON
-        ========================= */
-
-        .add-button {
-            background-color: #8c7658;
-            color: white;
-
-            padding: 10px 16px;
-
-            border-radius: 7px;
-
+        .add-btn {
+            display: inline-block;
+            background: #765638;
+            color: #fffaf2;
+            padding: 12px 18px;
+            border-radius: 6px;
             text-decoration: none;
-
             font-size: 14px;
             font-weight: bold;
-
-            transition: 0.2s;
+            white-space: nowrap;
         }
 
-        .add-button:hover {
-            background-color: #735f45;
+        .add-btn:hover {
+            background: #5d422a;
         }
 
+        /* Summary section */
+        .summary-card {
+            background: #fffaf2;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(75, 56, 40, 0.06);
+        }
 
-        /* =========================
-           TABLE
-        ========================= */
+        .summary-label {
+            color: #806c56;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .summary-number {
+            font-size: 30px;
+            font-weight: bold;
+            color: #765638;
+        }
+
+        /* Table container */
+        .table-card {
+            background: #fffaf2;
+            padding: 22px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(75, 56, 40, 0.06);
+        }
+
+        .table-heading {
+            margin-bottom: 18px;
+        }
+
+        .table-heading h2 {
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
+
+        .table-heading p {
+            font-size: 13px;
+            color: #806c56;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
 
         table {
             width: 100%;
+            min-width: 1050px;
             border-collapse: collapse;
         }
 
+        thead {
+            background: #eee1ce;
+        }
+
         th {
-            background-color: #dfd0b9;
-            color: #4a3b2a;
-
-            padding: 13px 10px;
-
+            padding: 14px 12px;
             text-align: left;
-
-            font-size: 14px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #5b4530;
+            white-space: nowrap;
         }
 
         td {
-            padding: 13px 10px;
-
-            border-bottom: 1px solid #e5d8c5;
-
-            color: #5c5042;
-
-            font-size: 14px;
+            padding: 14px 12px;
+            border-bottom: 1px solid #eadfce;
+            font-size: 13px;
+            vertical-align: middle;
         }
 
-        tr:hover {
-            background-color: #faf2e5;
+        tbody tr:hover {
+            background: #fbf4e9;
         }
 
+        .guest-name {
+            font-weight: bold;
+            color: #4b3828;
+        }
 
-        /* =========================
-           STATUS
-        ========================= */
-
-        .status {
-            background-color: #eadfcf;
-
-            color: #66533d;
-
-            padding: 6px 10px;
-
-            border-radius: 15px;
-
-            font-size: 12px;
-
+        .reservation-id {
+            color: #806c56;
             font-weight: bold;
         }
 
+        /* Reservation status */
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
 
-        /* =========================
-           EMPTY MESSAGE
-        ========================= */
+        .status-pending {
+            background: #f7e7b5;
+            color: #765b14;
+        }
 
-        .empty-message {
+        .status-confirmed {
+            background: #dcebd7;
+            color: #32613b;
+        }
+
+        .status-cancelled {
+            background: #f3d7d3;
+            color: #963d35;
+        }
+
+        .status-default {
+            background: #eee1ce;
+            color: #5b4530;
+        }
+
+        /* Action buttons */
+        .actions {
+            display: flex;
+            gap: 7px;
+            align-items: center;
+        }
+
+        .action-btn {
+            display: inline-block;
+            padding: 8px 11px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .edit-btn {
+            background: #cdbb9d;
+            color: #3d2c1e;
+        }
+
+        .edit-btn:hover {
+            background: #b9a27f;
+        }
+
+        .delete-btn {
+            background: #a94442;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #873632;
+        }
+
+        /* Empty state */
+        .empty-state {
             text-align: center;
-
-            padding: 25px;
-
-            color: #8a7a67;
+            padding: 45px 20px;
         }
 
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
-
-        @media (max-width: 900px) {
-
-            .sidebar {
-                width: 190px;
-            }
-
-            .main-content {
-                padding: 25px;
-            }
-
-            table {
-                min-width: 900px;
-            }
+        .empty-state h3 {
+            margin-bottom: 10px;
+            color: #765638;
         }
 
-        @media (max-width: 650px) {
+        .empty-state p {
+            color: #806c56;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
 
-            body {
-                display: block;
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 22px 10px;
+            font-size: 12px;
+            color: #806c56;
+        }
+
+        /* Responsive layout */
+        @media (max-width: 768px) {
+            .layout {
+                flex-direction: column;
             }
 
             .sidebar {
                 width: 100%;
-                min-height: auto;
+                padding: 18px;
             }
 
             .logo {
-                margin-bottom: 20px;
+                text-align: left;
+                margin-bottom: 5px;
+            }
+
+            .tagline {
+                text-align: left;
+                margin-bottom: 15px;
+            }
+
+            .nav-title {
+                margin-top: 12px;
+            }
+
+            .sidebar a {
+                display: inline-block;
+                margin-right: 5px;
             }
 
             .main-content {
-                padding: 20px;
+                padding: 18px;
             }
 
+            .topbar h1 {
+                font-size: 24px;
+            }
+
+            .table-card {
+                padding: 15px;
+            }
         }
-
     </style>
-
 </head>
 
-
 <body>
+<div class="layout">
 
-
-    <!-- =========================
-         LEFT SIDEBAR
-    ========================= -->
-
+    <!-- Sidebar -->
     <aside class="sidebar">
+        <div class="logo">EasyStay</div>
+        <div class="tagline">Hotel Reservation System</div>
 
-        <div class="logo">
+        <div class="nav-title">Main Menu</div>
 
-            <h1>EasyStay</h1>
-
-            <p>Hotel Reservation System</p>
-
-        </div>
-
-
-        <p class="nav-title">
-            Navigation
-        </p>
-
-
-        <!-- HOME -->
-
-        <a href="{% url 'reservation_list' %}" class="nav-link active">
-
-            <span class="nav-icon">⌂</span>
-
-            <span>Home</span>
-
+        <a href="{% url 'reservation_list' %}" class="active">
+            Dashboard / Reservations
         </a>
 
-
-        <!-- RESERVATIONS -->
-
-        <a href="{% url 'reservation_list' %}" class="nav-link">
-
-            <span class="nav-icon">▣</span>
-
-            <span>Reservations</span>
-
+        <a href="{% url 'add_reservation' %}">
+            + Add Reservation
         </a>
-
-
-        <!-- ADD RESERVATION -->
-
-        <a href="{% url 'add_reservation' %}" class="nav-link">
-
-            <span class="nav-icon">＋</span>
-
-            <span>Add Reservation</span>
-
-        </a>
-
     </aside>
 
-
-
-    <!-- =========================
-         MAIN CONTENT
-    ========================= -->
-
+    <!-- Main content -->
     <main class="main-content">
 
-
-        <div class="reservation-container">
-
-
-            <!-- HEADER -->
-
-            <div class="header">
-
-                <h2>
-                    Reservation List
-                </h2>
-
-
-                <a href="{% url 'add_reservation' %}" class="add-button">
-
-                    + Add Reservation
-
-                </a>
-
+        <!-- Page heading -->
+        <div class="topbar">
+            <div>
+                <h1>Reservation List</h1>
+                <p class="subtitle">
+                    Manage your hotel reservations in one place.
+                </p>
             </div>
 
-
-
-            <!-- RESERVATION TABLE -->
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>ID</th>
-
-                        <th>Guest Name</th>
-
-                        <th>Contact Number</th>
-
-                        <th>Room Type</th>
-
-                        <th>Check In</th>
-
-                        <th>Check Out</th>
-
-                        <th>Guests</th>
-
-                        <th>Status</th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-
-                    {% for reservation in reservations %}
-
-                    <tr>
-
-                        <td>
-                            R{{ reservation.reservation_id|stringformat:"03d" }}
-                        </td>
-
-                        <td>
-                            {{ reservation.guest_name }}
-                        </td>
-
-                        <td>
-                            {{ reservation.contact_number }}
-                        </td>
-
-                        <td>
-                            {{ reservation.room_type }}
-                        </td>
-
-                        <td>
-                            {{ reservation.check_in_date }}
-                        </td>
-
-                        <td>
-                            {{ reservation.check_out_date }}
-                        </td>
-
-                        <td>
-                            {{ reservation.number_of_guests }}
-                        </td>
-
-                        <td>
-
-                            <span class="status">
-
-                                {{ reservation.reservation_status }}
-
-                            </span>
-
-                        </td>
-
-                    </tr>
-
-
-                    {% empty %}
-
-                    <tr>
-
-                        <td colspan="8" class="empty-message">
-
-                            No reservations found.
-
-                        </td>
-
-                    </tr>
-
-                    {% endfor %}
-
-
-                </tbody>
-
-            </table>
-
-
+            <a href="{% url 'add_reservation' %}" class="add-btn">
+                + Add Reservation
+            </a>
         </div>
 
+        <!-- Total reservations -->
+        <section class="summary-card">
+            <div class="summary-label">Total Reservations</div>
+            <div class="summary-number">{{ reservations|length }}</div>
+        </section>
+
+        <!-- Reservations table -->
+        <section class="table-card">
+            <div class="table-heading">
+                <h2>All Reservations</h2>
+                <p>View, update, or delete reservation records.</p>
+            </div>
+
+            {% if reservations %}
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Reservation ID</th>
+                                <th>Guest Name</th>
+                                <th>Contact Number</th>
+                                <th>Room Type</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Guests</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for reservation in reservations %}
+                                <tr>
+                                    <td class="reservation-id">
+                                        #{{ reservation.reservation_id }}
+                                    </td>
+
+                                    <td class="guest-name">
+                                        {{ reservation.guest_name }}
+                                    </td>
+
+                                    <td>
+                                        {{ reservation.contact_number }}
+                                    </td>
+
+                                    <td>
+                                        {{ reservation.room_type }}
+                                    </td>
+
+                                    <td>
+                                        {{ reservation.check_in_date|date:"M d, Y" }}
+                                    </td>
+
+                                    <td>
+                                        {{ reservation.check_out_date|date:"M d, Y" }}
+                                    </td>
+
+                                    <td>
+                                        {{ reservation.number_of_guests }}
+                                    </td>
+
+                                    <td>
+                                        {% if reservation.reservation_status == "Pending" %}
+                                            <span class="status status-pending">
+                                                Pending
+                                            </span>
+                                        {% elif reservation.reservation_status == "Confirmed" %}
+                                            <span class="status status-confirmed">
+                                                Confirmed
+                                            </span>
+                                        {% elif reservation.reservation_status == "Cancelled" %}
+                                            <span class="status status-cancelled">
+                                                Cancelled
+                                            </span>
+                                        {% else %}
+                                            <span class="status status-default">
+                                                {{ reservation.reservation_status }}
+                                            </span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        <div class="actions">
+                                            <a
+                                                href="{% url 'edit_reservation' reservation.reservation_id %}"
+                                                class="action-btn edit-btn">
+                                                Edit
+                                            </a>
+
+                                            <a
+                                                href="{% url 'delete_reservation' reservation.reservation_id %}"
+                                                class="action-btn delete-btn">
+                                                Delete
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            {% else %}
+                <div class="empty-state">
+                    <h3>No Reservations Yet</h3>
+                    <p>
+                        There are currently no reservation records.
+                        Click below to add your first reservation.
+                    </p>
+
+                    <a href="{% url 'add_reservation' %}" class="add-btn">
+                        + Add First Reservation
+                    </a>
+                </div>
+            {% endif %}
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            EasyStay Hotel Reservation System
+        </footer>
 
     </main>
-
-
+</div>
 </body>
-
 </html>

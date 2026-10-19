@@ -1,165 +1,336 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Add Reservation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title|default:"Add Reservation" }} | EasyStay</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background-color: #f3eadc;
-            margin: 0;
-            padding: 50px;
+            background: #f3eadc;
+            color: #4b3828;
+            min-height: 100vh;
         }
 
-        .form-container {
-            width: 90%;
-            max-width: 700px;
-            margin: auto;
-            background-color: #fffaf2;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(80, 60, 40, 0.15);
-        }
-
-        h2 {
-            background-color: #cdbb9d;
-            color: #4a3b2a;
-            padding: 18px;
-            margin: -30px -30px 25px -30px;
-            border-radius: 15px 15px 0 0;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 7px;
-            color: #4a3b2a;
-            font-weight: bold;
-        }
-
-        input,
-        select {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 11px;
-            border: 1px solid #d8c8ae;
-            border-radius: 7px;
-            font-size: 14px;
-        }
-
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: #a9906e;
-        }
-
-        .buttons {
-            margin-top: 25px;
+        .layout {
             display: flex;
-            gap: 10px;
+            min-height: 100vh;
         }
 
-        button,
-        .back-button {
-            padding: 11px 20px;
-            border: none;
-            border-radius: 7px;
-            cursor: pointer;
+        /* Sidebar */
+        .sidebar {
+            width: 230px;
+            flex-shrink: 0;
+            background: #cdbb9d;
+            padding: 25px 15px;
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+            color: #4b3828;
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            text-align: center;
+            font-size: 12px;
+            color: #66513c;
+            margin-bottom: 35px;
+        }
+
+        .nav-title {
+            font-size: 11px;
+            font-weight: bold;
+            color: #765638;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 20px 10px 10px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 12px 14px;
+            margin-bottom: 7px;
+            border-radius: 6px;
             text-decoration: none;
+            color: #4b3828;
             font-size: 14px;
+            transition: background 0.2s;
         }
 
-        button {
-            background-color: #8c7658;
-            color: white;
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #fffaf2;
         }
 
-        .back-button {
-            background-color: #dfd0b9;
-            color: #4a3b2a;
+        /* Main content */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        button:hover,
-        .back-button:hover {
-            opacity: 0.85;
+        .page-header {
+            width: 100%;
+            max-width: 850px;
+            margin-bottom: 25px;
         }
 
-        .errorlist {
+        .page-header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: #4b3828;
+        }
+
+        .page-header p {
+            color: #806c56;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Form card */
+        .form-card {
+            width: 100%;
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fffaf2;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(75, 56, 40, 0.08);
+        }
+
+        .form-card h2 {
+            font-size: 21px;
+            color: #765638;
+            margin-bottom: 8px;
+        }
+
+        .form-description {
+            color: #806c56;
+            font-size: 13px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* Django form fields */
+        .reservation-form p {
+            margin-bottom: 19px;
+        }
+
+        .reservation-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #5b4530;
+        }
+
+        .reservation-form input,
+        .reservation-form select,
+        .reservation-form textarea {
+            display: block;
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #d6c6ae;
+            border-radius: 6px;
+            background: #ffffff;
+            color: #4b3828;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .reservation-form input:focus,
+        .reservation-form select:focus,
+        .reservation-form textarea:focus {
+            border-color: #96744f;
+            box-shadow: 0 0 0 3px rgba(150, 116, 79, 0.15);
+        }
+
+        .reservation-form .helptext {
+            display: block;
+            margin-top: 6px;
+            color: #806c56;
+            font-size: 12px;
+        }
+
+        .reservation-form ul.errorlist {
+            list-style: none;
             color: #a94442;
             font-size: 13px;
-            padding-left: 20px;
+            margin-bottom: 8px;
+        }
+
+        .form-actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid #eadfce;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .save-btn {
+            background: #765638;
+            color: #fffaf2;
+        }
+
+        .save-btn:hover {
+            background: #5d422a;
+        }
+
+        .cancel-btn {
+            background: #e9ddcb;
+            color: #4b3828;
+        }
+
+        .cancel-btn:hover {
+            background: #d9c7ad;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px 10px;
+            font-size: 12px;
+            color: #806c56;
+        }
+
+        /* Responsive layout */
+        @media (max-width: 768px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 18px;
+            }
+
+            .logo,
+            .tagline {
+                text-align: left;
+            }
+
+            .tagline {
+                margin-bottom: 15px;
+            }
+
+            .nav-title {
+                margin-top: 12px;
+            }
+
+            .sidebar a {
+                display: inline-block;
+                margin-right: 5px;
+            }
+
+            .main-content {
+                padding: 20px 15px;
+            }
+
+            .page-header h1 {
+                font-size: 24px;
+            }
+
+            .form-card {
+                padding: 22px 18px;
+            }
         }
     </style>
 </head>
 
 <body>
+<div class="layout">
 
-<div class="form-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">EasyStay</div>
+        <div class="tagline">Hotel Reservation System</div>
 
-    <h2>Add Reservation</h2>
+        <div class="nav-title">Main Menu</div>
 
-    <form method="POST">
+        <a href="{% url 'reservation_list' %}">
+            Dashboard / Reservations
+        </a>
 
-        {% csrf_token %}
+        <a href="{% url 'add_reservation' %}"
+           class="{% if request.resolver_match.url_name == 'add_reservation' %}active{% endif %}">
+            + Add Reservation
+        </a>
+    </aside>
 
-        <div class="form-group">
-            {{ form.guest_name.label_tag }}
-            {{ form.guest_name }}
-            {{ form.guest_name.errors }}
-        </div>
+    <!-- Main content -->
+    <main class="main-content">
 
-        <div class="form-group">
-            {{ form.contact_number.label_tag }}
-            {{ form.contact_number }}
-            {{ form.contact_number.errors }}
-        </div>
+        <header class="page-header">
+            <h1>{{ page_title|default:"Add Reservation" }}</h1>
 
-        <div class="form-group">
-            {{ form.room_type.label_tag }}
-            {{ form.room_type }}
-            {{ form.room_type.errors }}
-        </div>
+            <p>
+                {% if page_title == "Edit Reservation" %}
+                    Update the guest's reservation information below.
+                {% else %}
+                    Enter the guest and booking details to create a reservation.
+                {% endif %}
+            </p>
+        </header>
 
-        <div class="form-group">
-            {{ form.check_in_date.label_tag }}
-            {{ form.check_in_date }}
-            {{ form.check_in_date.errors }}
-        </div>
+        <section class="form-card">
+            <h2>Reservation Information</h2>
 
-        <div class="form-group">
-            {{ form.check_out_date.label_tag }}
-            {{ form.check_out_date }}
-            {{ form.check_out_date.errors }}
-        </div>
+            <p class="form-description">
+                Please complete all required fields before saving.
+            </p>
 
-        <div class="form-group">
-            {{ form.number_of_guests.label_tag }}
-            {{ form.number_of_guests }}
-            {{ form.number_of_guests.errors }}
-        </div>
+            <form method="POST" class="reservation-form">
+                {% csrf_token %}
 
-        <div class="form-group">
-            {{ form.reservation_status.label_tag }}
-            {{ form.reservation_status }}
-            {{ form.reservation_status.errors }}
-        </div>
+                {{ form.as_p }}
 
-        <div class="buttons">
-            <button type="submit">Save Reservation</button>
+                <div class="form-actions">
+                    <button type="submit" class="btn save-btn">
+                        {{ button_text|default:"Save Reservation" }}
+                    </button>
 
-            <a href="{% url 'reservation_list' %}" class="back-button">
-                Back to Reservation List
-            </a>
-        </div>
+                    <a href="{% url 'reservation_list' %}"
+                       class="btn cancel-btn">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </section>
 
-    </form>
+        <footer class="footer">
+            EasyStay Hotel Reservation System
+        </footer>
 
+    </main>
 </div>
-
 </body>
 </html>
