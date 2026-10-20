@@ -27,65 +27,62 @@
 
         /* Sidebar */
         .sidebar {
-            width: 230px;
+            width: 245px;
             flex-shrink: 0;
-            background: #cdbb9d;
-            padding: 25px 15px;
+            background: #765638;
+            color: #fffaf2;
+            padding: 30px 22px;
         }
 
         .logo {
-            text-align: center;
-            font-size: 25px;
+            font-size: 27px;
             font-weight: bold;
-            color: #4b3828;
-            margin-bottom: 8px;
+            color: #fffaf2;
+            margin-bottom: 5px;
         }
 
         .tagline {
-            text-align: center;
             font-size: 12px;
-            color: #66513c;
-            margin-bottom: 35px;
+            color: #e8d8c3;
+            margin-bottom: 38px;
         }
 
         .nav-title {
             font-size: 11px;
-            font-weight: bold;
-            color: #765638;
+            font-weight: normal;
+            color: #e8d8c3;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 20px 10px 10px;
+            letter-spacing: 1.4px;
+            margin: 0 0 12px;
         }
 
         .sidebar a {
             display: block;
-            padding: 12px 14px;
-            margin-bottom: 7px;
+            padding: 12px 13px;
+            margin: 5px 0;
             border-radius: 6px;
             text-decoration: none;
-            color: #4b3828;
+            color: #fffaf2;
             font-size: 14px;
             transition: background 0.2s;
         }
 
         .sidebar a:hover,
         .sidebar a.active {
-            background: #fffaf2;
+            background: #967654;
         }
 
         /* Main content */
         .main-content {
             flex: 1;
             min-width: 0;
-            padding: 35px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 34px;
         }
 
         .page-header {
             width: 100%;
-            max-width: 850px;
             margin-bottom: 25px;
         }
 
@@ -104,12 +101,13 @@
         /* Form card */
         .form-card {
             width: 100%;
-            max-width: 850px;
-            margin: 0 auto;
+            max-width: 1100px;
+            margin: 0;
             background: #fffaf2;
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(75, 56, 40, 0.08);
+            border: 1px solid #e6d7c2;
+            border-radius: 10px;
+            box-shadow: 0 5px 16px rgba(75, 56, 40, 0.04);
         }
 
         .form-card h2 {
@@ -230,29 +228,20 @@
 
             .sidebar {
                 width: 100%;
-                padding: 18px;
-            }
-
-            .logo,
-            .tagline {
-                text-align: left;
+                padding: 20px;
             }
 
             .tagline {
-                margin-bottom: 15px;
-            }
-
-            .nav-title {
-                margin-top: 12px;
+                margin-bottom: 20px;
             }
 
             .sidebar a {
                 display: inline-block;
-                margin-right: 5px;
+                margin: 5px 5px 0 0;
             }
 
             .main-content {
-                padding: 20px 15px;
+                padding: 22px 14px;
             }
 
             .page-header h1 {
@@ -276,14 +265,14 @@
 
         <div class="nav-title">Main Menu</div>
 
-        <a href="{% url 'reservation_list' %}">
-            Dashboard / Reservations
-        </a>
+        <a href="{% url 'dashboard' %}"
+           class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Home / Dashboard</a>
+
+        <a href="{% url 'reservation_list' %}"
+           class="{% if request.resolver_match.url_name == 'reservation_list' %}active{% endif %}">Reservations</a>
 
         <a href="{% url 'add_reservation' %}"
-           class="{% if request.resolver_match.url_name == 'add_reservation' %}active{% endif %}">
-            + Add Reservation
-        </a>
+           class="{% if request.resolver_match.url_name == 'add_reservation' or request.resolver_match.url_name == 'edit_reservation' %}active{% endif %}">+ Add Reservation</a>
     </aside>
 
     <!-- Main content -->

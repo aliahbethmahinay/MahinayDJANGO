@@ -27,57 +27,58 @@
 
         /* Sidebar */
         .sidebar {
-            width: 230px;
-            background: #cdbb9d;
-            padding: 25px 15px;
+            width: 245px;
+            background: #765638;
+            color: #fffaf2;
+            padding: 30px 22px;
             flex-shrink: 0;
         }
 
         .logo {
-            text-align: center;
-            font-size: 25px;
+            font-size: 27px;
             font-weight: bold;
-            color: #4b3828;
-            margin-bottom: 8px;
+            color: #fffaf2;
+            margin-bottom: 5px;
         }
 
         .tagline {
-            text-align: center;
             font-size: 12px;
-            color: #66513c;
-            margin-bottom: 35px;
+            color: #e8d8c3;
+            margin-bottom: 38px;
         }
 
         .nav-title {
             font-size: 11px;
-            font-weight: bold;
-            color: #765638;
+            font-weight: normal;
+            color: #e8d8c3;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 20px 10px 10px;
+            letter-spacing: 1.4px;
+            margin: 0 0 12px;
         }
 
         .sidebar a {
             display: block;
-            padding: 12px 14px;
-            margin-bottom: 7px;
+            padding: 12px 13px;
+            margin: 5px 0;
             border-radius: 6px;
             text-decoration: none;
-            color: #4b3828;
+            color: #fffaf2;
             font-size: 14px;
             transition: background 0.2s;
         }
 
         .sidebar a:hover,
         .sidebar a.active {
-            background: #fffaf2;
+            background: #967654;
         }
 
         /* Main content */
         .main-content {
             flex: 1;
             min-width: 0;
-            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 34px;
         }
 
         .topbar {
@@ -119,10 +120,11 @@
         /* Summary section */
         .summary-card {
             background: #fffaf2;
+            border: 1px solid #e6d7c2;
             border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 3px 10px rgba(75, 56, 40, 0.06);
+            padding: 22px;
+            margin-bottom: 22px;
+            box-shadow: 0 5px 16px rgba(75, 56, 40, 0.04);
         }
 
         .summary-label {
@@ -140,9 +142,10 @@
         /* Table container */
         .table-card {
             background: #fffaf2;
+            border: 1px solid #e6d7c2;
             padding: 22px;
             border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(75, 56, 40, 0.06);
+            box-shadow: 0 5px 16px rgba(75, 56, 40, 0.04);
         }
 
         .table-heading {
@@ -171,7 +174,7 @@
         }
 
         thead {
-            background: #eee1ce;
+            background: #f8f0e5;
         }
 
         th {
@@ -186,13 +189,13 @@
 
         td {
             padding: 14px 12px;
-            border-bottom: 1px solid #eadfce;
+            border-bottom: 1px solid #eee1ce;
             font-size: 13px;
             vertical-align: middle;
         }
 
         tbody tr:hover {
-            background: #fbf4e9;
+            background: #f8f0e5;
         }
 
         .guest-name {
@@ -305,21 +308,19 @@
 
             .sidebar {
                 width: 100%;
-                padding: 18px;
+                padding: 20px;
             }
 
             .logo {
-                text-align: left;
                 margin-bottom: 5px;
             }
 
             .tagline {
-                text-align: left;
-                margin-bottom: 15px;
+                margin-bottom: 20px;
             }
 
             .nav-title {
-                margin-top: 12px;
+                margin-top: 0;
             }
 
             .sidebar a {
@@ -328,7 +329,7 @@
             }
 
             .main-content {
-                padding: 18px;
+                padding: 22px 14px;
             }
 
             .topbar h1 {
@@ -352,8 +353,12 @@
 
         <div class="nav-title">Main Menu</div>
 
+        <a href="{% url 'dashboard' %}">
+            Home / Dashboard
+        </a>
+
         <a href="{% url 'reservation_list' %}" class="active">
-            Dashboard / Reservations
+            Reservations
         </a>
 
         <a href="{% url 'add_reservation' %}">

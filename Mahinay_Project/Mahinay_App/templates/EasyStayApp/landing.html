@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyStay | Welcome</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; font-family: Arial, sans-serif; background: #f3eadc; color: #4b3828; padding: 58px 24px 24px; }
+        .hero { width: min(1024px, 100%); min-height: 450px; margin: 0 auto; display: grid; grid-template-columns: 3fr 2fr; background: #fffaf2; border: 1px solid #e6d7c2; border-radius: 13px; overflow: hidden; box-shadow: 0 14px 30px rgba(75,56,40,.08); animation: arrive .6s ease-out both; }
+        .copy { padding: 60px 48px; align-self: center; }
+        .eyebrow { display: inline-block; padding: 7px 11px; border-radius: 4px; background: #eee1ce; color: #765638; font-size: 11px; font-weight: bold; letter-spacing: 1.5px; margin-bottom: 22px; }
+        h1 { font-size: clamp(32px, 4vw, 48px); line-height: 1.15; letter-spacing: -1.5px; margin-bottom: 20px; }
+        h1 span { color: #765638; }
+        .description { max-width: 430px; color: #725a43; font-size: 16px; line-height: 1.8; margin-bottom: 30px; }
+        .button { display: inline-block; background: #765638; color: #fffaf2; text-decoration: none; padding: 14px 20px; border-radius: 6px; font-size: 14px; font-weight: bold; transition: background .2s, transform .2s; }
+        .button:hover { background: #5d422a; transform: translateY(-2px); }
+        .visual { background: #cdbb9d; display: flex; align-items: center; justify-content: center; position: relative; min-height: 360px; overflow: hidden; }
+        .ring, .ring:before { position: absolute; content: ''; width: 340px; height: 340px; border: 1px solid rgba(118,86,56,.18); border-radius: 50%; }
+        .ring:before { width: 260px; height: 260px; top: 39px; left: 39px; }
+        .welcome-card { position: relative; z-index: 1; width: min(270px, 78%); padding: 30px 22px; text-align: center; background: #fffaf2; border-radius: 11px; box-shadow: 0 12px 28px rgba(75,56,40,.08); animation: float 4s ease-in-out infinite; }
+        .icon { width: 58px; height: 58px; margin: 0 auto 16px; display: grid; place-items: center; border-radius: 50%; background: #eee1ce; font-size: 25px; }
+        .welcome-card h2 { font-size: 21px; margin-bottom: 10px; }
+        .welcome-card p { color: #725a43; font-size: 13px; line-height: 1.7; }
+        .welcome-time { margin-top: -14px; margin-bottom: 18px; color: #806c56; font-size: 13px; line-height: 1.7; }
+        footer { text-align: center; color: #806c56; font-size: 12px; padding: 30px 10px 0; }
+        @keyframes arrive { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        @media (max-width: 700px) { body { padding: 24px 14px; } .hero { grid-template-columns: 1fr; } .copy { padding: 38px 28px; } .visual { min-height: 300px; } footer { padding-top: 24px; } }
+        @media (prefers-reduced-motion: reduce) { *, *:before, *:after { animation: none !important; transition: none !important; } }
+    </style>
+</head>
+<body>
+    <main class="hero">
+        <section class="copy">
+            <div class="eyebrow" id="greeting">WELCOME TO EASYSTAY</div>
+            <h1>A comfortable stay,<br><span>made simple.</span></h1>
+            <p class="description">A simple and convenient place to manage your guest reservations. Everything you need to get started, all in one place.</p>
+            <a class="button" href="{% url 'dashboard' %}">View Reservations&nbsp; →</a>
+        </section>
+        <aside class="visual" aria-label="Welcome to EasyStay">
+            <div class="ring"></div>
+            <div class="welcome-card">
+                <div class="icon" aria-hidden="true">⌂</div>
+                <h2>Your stay starts here</h2>
+                <p>Simple reservation management with a warm, welcoming touch.</p>
+            </div>
+        </aside>
+    </main>
+
+    <footer>EasyStay · by Aliah Beth Mahinay</footer>
+
+</body>
+</html>
